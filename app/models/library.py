@@ -28,4 +28,4 @@ class LibrarySchema(ma.Schema):
 
 
 library_schema = LibrarySchema()
-library_schema = LibrarySchema(many=True)
+libraries_schema = LibrarySchema(many=True)

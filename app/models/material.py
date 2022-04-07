@@ -29,4 +29,4 @@ class MaterialSchema(ma.Schema):
 
 
 material_schema = MaterialSchema()
-material_schema = MaterialSchema(many=True)
+materials_schema = MaterialSchema(many=True)

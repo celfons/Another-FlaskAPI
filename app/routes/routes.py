@@ -1,6 +1,6 @@
 from app import app
 from flask import jsonify, url_for, redirect
-from ..views import users, helper
+from ..views import users, helper, material
 
 @app.route('/', methods=['GET'])
 def health():
@@ -53,3 +53,8 @@ def delete_users(id):
 @helper.admin_required
 def update_users(id):
     return users.update_user(id)
+
+@app.route('/v1/material/free', methods=['GET'])
+@helper.token_required
+def get_user():
+    return material.get_free()
