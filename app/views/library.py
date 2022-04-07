@@ -1,6 +1,7 @@
 from app import app, db
 from flask import request, jsonify
-from ..models.library import Library, library_schema, libraries_schema, Users
+from ..models.library import Library, library_schema, libraries_schema
+from ..models.Users import Users
 import stripe
 
 def get_all(current_user):
@@ -33,13 +34,14 @@ def post_library():
 
     if event['type'] == 'checkout.session.completed':
         payment_intent = event['data']
-        print(payment_intent)
         pay_id = payment_intent.id
         status = payment_intent.status
-        user_id = payment_intent.customer_details.email
+        email = payment_intent.customer_details.email
         payment_link = payment_intent.payment_link
 
-        library = Library(pay_id, status, user_id, payment_link)
+        user = Users.query.filter(Users.email == email).one()
+
+        library = Library(pay_id, status, user.id, payment_link)
 
         try:
             db.session.add(library)
