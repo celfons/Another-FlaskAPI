@@ -70,7 +70,7 @@ def post_library():
 def post_material():
     return material.post_material()
 
-@app.route('/v1/users/<id>', methods=['PUT'])
+@app.route('/v1/material/<id>', methods=['PUT'])
 @helper.admin_required
 def update_material(id):
     return material.update_material(id)
