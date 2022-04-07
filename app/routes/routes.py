@@ -2,6 +2,10 @@ from app import app
 from flask import jsonify, url_for, redirect
 from ..views import users, helper
 
+@app.route('/', methods=['GET'])
+def health():
+    return jsonify({"System": "UP"})  
+
 @app.route('/v1', methods=['GET'])
 @helper.token_required
 def root(current_user):
