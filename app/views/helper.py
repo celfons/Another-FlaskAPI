@@ -6,23 +6,6 @@ from .users import user_by_username
 import jwt
 from werkzeug.security import check_password_hash
 
-
-def admin_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        token = request.headers.get('x-token')
-        if not token:
-            return jsonify({'message': 'token is missing', 'data': []}), 401
-        try:
-            data = jwt.decode(token, app.config['SECRET_KEY'])
-            if app.config['ADMIN'] != data['username']:
-                raise Exception('only admin')
-            current_user = user_by_username(username=data['username'])
-        except:
-            return jsonify({'message': 'token is invalid or expired', 'data': []}), 401
-        return f(current_user, *args, **kwargs)
-    return decorated
-
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -35,6 +18,22 @@ def token_required(f):
         except:
             return jsonify({'message': 'token is invalid or expired', 'data': []}), 401
         return f(current_user, *args, **kwargs)
+    return decorated
+
+def admin_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = request.headers.get('x-token')
+        if not token:
+            return jsonify({'message': 'token is missing', 'data': []}), 401
+        try:
+            data = jwt.decode(token, app.config['SECRET_KEY'])
+            current_user = user_by_username(username=data['username'])
+            if current_user.username != app.config['ADMIN']:
+                raise
+        except:
+            return jsonify({'message': 'only admin', 'data': []}), 401
+        return f(*args, **kwargs)
     return decorated
 
 def auth():
