@@ -55,6 +55,9 @@ def update_users(id):
     return users.update_user(id)
 
 @app.route('/v1/material/free', methods=['GET'])
-@helper.token_required
 def get_free_material():
     return material.get_free()
+
+@app.route('/v1/material/premium', methods=['GET'])
+def get_premium_material():
+    return material.get_premium()

@@ -13,3 +13,15 @@ def get_free():
             "description" : material.description
         })
     return jsonify(response), 200
+
+def get_premium():
+    materiais = Material.query.filter(Material.price > 0).all()
+    response = []
+    for material in materiais:
+        response.append({
+            "price" : material.price,
+            "category" : material.category,
+            "title" : material.title,
+            "description" : material.description
+        })
+    return jsonify(response), 200
