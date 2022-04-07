@@ -35,8 +35,8 @@ def post_library():
 
     if event['type'] == 'checkout.session.completed':
         payment = event['data']['object']
-        payment_intent = json.loads(json.dumps(payment))
-
+        payment_intent = json.dumps(payment)
+        print(payment_intent)
         pay_id = payment_intent["id"]
         status = payment_intent["payment_status"]
         email = payment_intent["customer_details"]["email"]
