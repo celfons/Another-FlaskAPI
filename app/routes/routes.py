@@ -9,7 +9,15 @@ def health():
 @app.route('/v1', methods=['GET'])
 @helper.token_required
 def root(current_user):
-    return jsonify({'message': f'Hello {current_user.name}', 'library' : f'{current_user.library}'})
+    response = []
+    for result in current_user.library:
+        response.append({
+            "url" : result.material.url,
+            "category" : result.material.category,
+            "title" : result.material.title,
+            "description" : result.material.description
+        })
+    return jsonify({'name': f'{current_user.name}', 'libraries' : f'{response}'})
 
 
 @app.route('/v1/authenticate', methods=['POST'])
