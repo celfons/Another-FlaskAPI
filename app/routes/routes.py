@@ -64,3 +64,13 @@ def root(current_user):
 @helper.token_required
 def post_library():
     return library.post_library()
+
+@app.route('/v1/material', methods=['POST'])
+@helper.admin_required
+def post_material():
+    return material.post_material()
+
+@app.route('/v1/users/<id>', methods=['PUT'])
+@helper.admin_required
+def update_material(id):
+    return material.update_material(id)
