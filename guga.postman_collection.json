@@ -408,6 +408,43 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Atualização de status de pagamento",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": \"pending\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://celfons-api.herokuapp.com/v1/library/xpto",
+					"protocol": "https",
+					"host": [
+						"celfons-api",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"v1",
+						"library",
+						"xpto"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
