@@ -36,7 +36,7 @@ def post_library():
         pay_id = payment_intent.id
         status = payment_intent.status
 
-        id = payment_intent.calculated_statement_descriptor.split(".")
+        id = payment_intent.statement_descriptor.split(".")
 
         user_id = id[0]
         material_id = id[1]
