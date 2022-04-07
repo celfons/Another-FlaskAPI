@@ -16,7 +16,7 @@ def admin_required(f):
         try:
             data = jwt.decode(token, app.config['SECRET_KEY'])
             if app.config['ADMIN'] != data['username']:
-                return jsonify({'message': 'only admin', 'data': []}), 401
+                raise Exception('only admin')
             current_user = user_by_username(username=data['username'])
         except:
             return jsonify({'message': 'token is invalid or expired', 'data': []}), 401
