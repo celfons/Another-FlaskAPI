@@ -4,9 +4,6 @@ from flask import request, jsonify
 from ..models.users import Users, user_schema, users_schema
 
 
-"""Retorna lista de usuários"""
-
-
 def get_users():
     name = request.args.get('name')
     if name:
@@ -20,9 +17,6 @@ def get_users():
     return jsonify({'message': 'nothing found', 'data': {}})
 
 
-"""Retorna usuário específico pelo ID no parametro da request"""
-
-
 def get_user(id):
     user = Users.query.get(id)
     if user:
@@ -30,9 +24,6 @@ def get_user(id):
         return jsonify({'message': 'successfully fetched', 'data': result.data}), 201
 
     return jsonify({'message': "user don't exist", 'data': {}}), 404
-
-
-"""Cadastro de usuários com validação de existência"""
 
 
 def post_user():
@@ -58,9 +49,6 @@ def post_user():
         return jsonify({'message': 'unable to create', 'data': {}}), 500
 
 
-"""Atualiza usuário baseado no ID, caso o mesmo exista."""
-
-
 def update_user(id):
     username = request.json['username']
     password = request.json['password']
@@ -84,9 +72,6 @@ def update_user(id):
             return jsonify({'message': 'successfully updated', 'data': result.data}), 201
         except:
             return jsonify({'message': 'unable to update', 'data':{}}), 500
-
-
-"""Deleta usuário com base no ID da request"""
 
 
 def delete_user(id):
