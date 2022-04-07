@@ -28,5 +28,5 @@ class MaterialSchema(ma.Schema):
         fields = ('id', 'title', 'description', 'price', 'category', 'url', 'user_id', 'created_on')
 
 
-post_schema = PostsSchema()
-posts_schema = PostsSchema(many=True)
+material_schema = MaterialSchema()
+material_schema = MaterialSchema(many=True)

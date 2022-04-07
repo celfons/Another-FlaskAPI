@@ -27,5 +27,5 @@ class LibrarySchema(ma.Schema):
         fields = ('id', 'pay_id', 'status', 'user_id', 'material_id', 'created_on')
 
 
-commentary_schema = CommentariesSchema()
-commentaries_schema = CommentariesSchema(many=True)
+library_schema = LibrarySchema()
+library_schema = LibrarySchema(many=True)
