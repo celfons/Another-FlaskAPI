@@ -66,6 +66,11 @@ def root(current_user):
 def post_library():
     return library.post_library()
 
+@app.route('/v1/library/<id>', methods=['PUT'])
+@helper.admin_required
+def post_library(id):
+    return library.update_library()
+
 @app.route('/v1/material', methods=['POST'])
 @helper.admin_required
 def post_material():

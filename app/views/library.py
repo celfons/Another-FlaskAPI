@@ -16,3 +16,18 @@ def post_library():
         return jsonify({}), 204
     except :
         return jsonify({'message': 'unable to create', 'data': {}}), 500
+
+def update_library(id):
+    status = request.json['status']
+    library = Library.query.filter(Library.pay_id == id).one()
+
+    if not library:
+        return jsonify({'message': "user don't exist", 'data': {}}), 404
+
+    if library:
+        try:
+            library.status = status
+            db.session.commit()
+            return jsonify({}), 204
+        except:
+            return jsonify({'message': 'unable to update', 'data':{}}), 500
