@@ -3,6 +3,19 @@ from flask import request, jsonify
 from ..models.library import Library, library_schema, libraries_schema
 import stripe
 
+def get_all(current_user):
+    response = []
+    for result in current_user.library:
+        print(result.material.url)
+        if(result.status == 'succeeded'):
+            response.append({
+                "url" : result.material.url,
+                "category" : result.material.category,
+                "title" : result.material.title,
+                "description" : result.material.description
+            })
+    return jsonify({'name': f'{current_user.name}', 'libraries' : response })
+
 def post_library():
 
     event = None

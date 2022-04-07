@@ -10,7 +10,8 @@ def get_free():
             "price" : material.price,
             "category" : material.category,
             "title" : material.title,
-            "description" : material.description
+            "description" : material.description,
+            "url" : material.url
         })
     return jsonify(response), 200
 
