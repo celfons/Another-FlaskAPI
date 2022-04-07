@@ -33,7 +33,7 @@ def post_library():
         raise e
 
     if event['type'] == 'checkout.session.completed':
-        payment_intent = event['data']
+        payment_intent = event['data']['object']
         pay_id = payment_intent.id
         status = payment_intent.status
         email = payment_intent.customer_details.email
