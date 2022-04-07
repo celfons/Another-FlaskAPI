@@ -1,6 +1,6 @@
 from app import app, db
 from flask import request, jsonify
-from ..models.library import Library, library_schema, libraries_schema
+from ..models.library import Library, library_schema, libraries_schema, Users
 import stripe
 
 def get_all(current_user):
@@ -31,18 +31,15 @@ def post_library():
     except stripe.error.SignatureVerificationError as e:
         raise e
 
-    if event['type'] == 'payment_intent.succeeded':
-        payment_intent = event['data']['object']
-
+    if event['type'] == 'checkout.session.completed':
+        payment_intent = event['data']
+        print(payment_intent)
         pay_id = payment_intent.id
         status = payment_intent.status
+        user_id = payment_intent.customer_details.email
+        payment_link = payment_intent.payment_link
 
-        id = payment_intent.statement_descriptor.split(".")
-
-        user_id = id[0]
-        material_id = id[1]
-
-        library = Library(pay_id, status, user_id, material_id)
+        library = Library(pay_id, status, user_id, payment_link)
 
         try:
             db.session.add(library)

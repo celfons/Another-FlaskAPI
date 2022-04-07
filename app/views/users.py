@@ -31,14 +31,14 @@ def post_user():
     password = request.json['password']
     name = request.json['name']
     email = request.json['email']
-
+    phone = request.json['phone']
     user = user_by_username(username)
     if user:
         result = user_schema.dump(user)
         return jsonify({'message': 'user already exists', 'data': {}})
 
     pass_hash = generate_password_hash(password)
-    user = Users(username, pass_hash, name, email)
+    user = Users(username, pass_hash, name, email, phone)
 
     try:
         db.session.add(user)
@@ -54,6 +54,7 @@ def update_user(id):
     password = request.json['password']
     name = request.json['name']
     email = request.json['email']
+    phone = request.json['phone']
     user = Users.query.get(id)
 
     if not user:
@@ -67,6 +68,7 @@ def update_user(id):
             user.password = pass_hash
             user.name = name
             user.email = email
+            phone.email = phone
             db.session.commit()
             result = user_schema.dump(user)
             return jsonify({'message': 'successfully updated', 'data': result.data}), 201

@@ -45,13 +45,14 @@ def post_material():
     price = request.json['price']
     category = request.json['category']
     url = request.json['url']
+    payment_link = request.json['payment_link']
 
     material = material_by_title(title)
     if material:
         result = material_schema.dump(material)
         return jsonify({'message': 'user already exists', 'data': {}})
 
-    material = Material(title, description, price, category, url)
+    material = Material(title, description, price, category, url, payment_link)
 
     try:
         db.session.add(material)
@@ -66,6 +67,7 @@ def update_material(id):
     price = request.json['price']
     category = request.json['category']
     url = request.json['url']
+    payment_link = request.json['payment_link']
     material = Material.query.get(id)
 
     if not material:
@@ -78,6 +80,7 @@ def update_material(id):
             material.price = price
             material.category = category
             material.url = url
+            material.payment_link = payment_link
             db.session.commit()
             return jsonify({}), 204
         except:
