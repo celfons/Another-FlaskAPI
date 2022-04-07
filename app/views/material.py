@@ -55,8 +55,7 @@ def post_material():
     try:
         db.session.add(material)
         db.session.commit()
-        result = user_schema.dump(material)
-        return jsonify({'message': 'successfully registered', 'data': result.data}), 201
+        return jsonify({}), 204
     except:
         return jsonify({'message': 'unable to create', 'data': {}}), 500
 
@@ -79,8 +78,7 @@ def update_material(id):
             material.category = category
             material.url = url
             db.session.commit()
-            result = user_schema.dump(material)
-            return jsonify({'message': 'successfully updated', 'data': result.data}), 201
+            return jsonify({}), 204
         except:
             return jsonify({'message': 'unable to update', 'data':{}}), 500
 
