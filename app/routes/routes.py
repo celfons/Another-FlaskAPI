@@ -9,7 +9,7 @@ def health():
 @app.route('/v1', methods=['GET'])
 @helper.token_required
 def root(current_user):
-    return jsonify({'message': f'Hello {current_user}'})
+    return jsonify({'message': f'Hello {current_user.name}', 'library' : f'{current_user.library}'})
 
 
 @app.route('/v1/authenticate', methods=['POST'])
