@@ -15,3 +15,4 @@ SQLALCHEMY_DATABASE_URI = 'postgresql://'+user+':'+passwd+'@'+host+'/' + databas
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 SECRET_KEY = key
 DEBUG = False
+ADMIN = os.environ.get('ADMIN_ID')
