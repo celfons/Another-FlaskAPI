@@ -17,7 +17,7 @@ def root(current_user):
             "title" : result.material.title,
             "description" : result.material.description
         })
-    return jsonify({'name': f'{current_user.name}', 'libraries' : f'{response}'})
+    return jsonify({'name': f'{current_user.name}', 'libraries' : response })
 
 
 @app.route('/v1/authenticate', methods=['POST'])
