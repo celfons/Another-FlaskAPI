@@ -52,7 +52,7 @@ def get_category_material(category):
 def get_libraries(current_user):
     return library.get_libraries()
 
-@app.route('/v1/library/webhook', methods=['POST'])
+@app.route('/v1/library', methods=['POST'])
 def post_library():
     return library.post_library()
 
