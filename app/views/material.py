@@ -25,3 +25,15 @@ def get_premium():
             "description" : material.description
         })
     return jsonify(response), 200
+
+def get_category(category):
+    materiais = Material.query.filter_by(category=category).all()
+    response = []
+    for material in materiais:
+        response.append({
+            "price" : material.price,
+            "category" : material.category,
+            "title" : material.title,
+            "description" : material.description
+        })
+    return jsonify(response), 200

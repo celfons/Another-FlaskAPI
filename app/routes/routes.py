@@ -61,3 +61,7 @@ def get_free_material():
 @app.route('/v1/material/premium', methods=['GET'])
 def get_premium_material():
     return material.get_premium()
+
+@app.route('/v1/material/category/<category>', methods=['GET'])
+def get_category_material(category):
+    return material.get_category(category)
