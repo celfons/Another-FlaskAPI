@@ -3,7 +3,6 @@ from flask import request, jsonify
 from ..models.library import Library, library_schema, libraries_schema
 from ..models.users import Users
 import stripe
-import json
 
 def get_all(current_user):
     response = []
@@ -35,7 +34,6 @@ def post_library():
 
     if event['type'] == 'checkout.session.completed':
         payment_intent = event['data']['object']
-        print(json.loads(payment_intent))
         pay_id = payment_intent["id"]
         status = payment_intent["payment_status"]
         email = payment_intent["customer_details"]["email"]
