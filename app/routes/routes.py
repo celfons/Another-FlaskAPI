@@ -50,7 +50,7 @@ def get_category_material(category):
 @app.route('/v1/libraries', methods=['GET'])
 @helper.user_required
 def get_libraries(current_user):
-    return library.get_libraries()
+    return library.get_libraries(current_user)
 
 @app.route('/v1/library', methods=['POST'])
 def post_library():

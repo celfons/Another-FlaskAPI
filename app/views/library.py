@@ -3,7 +3,7 @@ from flask import request, jsonify
 from ..models.library import Library, library_schema, libraries_schema
 import stripe
 
-def get_libraries():
+def get_libraries(current_user):
     response = []
     for result in current_user.library:
         if(result.status == 'succeeded'):
