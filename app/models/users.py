@@ -8,8 +8,8 @@ class Users(db.Model):
     name = db.Column(db.String(60), nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
     created_on = db.Column(db.DateTime, default=datetime.datetime.now())
-    material = db.relationship('Material', backref='users', lazy=True)
-    library = db.relationship('Library', backref='users', lazy=True)
+    material = db.relationship('Material', backref='users_material', lazy=True)
+    library = db.relationship('Library', backref='users_library', lazy=True)
 
     def __init__(self, username, password, name, email):
         self.username = username

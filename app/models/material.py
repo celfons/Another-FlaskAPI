@@ -12,7 +12,7 @@ class Material(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     created_on = db.Column(db.DateTime, default=datetime.datetime.now())
     user = db.relationship('Users', back_populates='material')
-    library = db.relationship('Library', backref='material', lazy=True)
+    library = db.relationship('Library', backref='material_library', lazy=True)
 
     def __init__(self, title, description, price, category, url, user_id):
         self.title = title
