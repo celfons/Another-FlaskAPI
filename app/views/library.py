@@ -1,7 +1,7 @@
 from app import app, db
 from flask import request, jsonify
 from ..models.library import Library, library_schema, libraries_schema
-from ..models.Users import Users
+from ..models.users import Users
 import stripe
 
 def get_all(current_user):
