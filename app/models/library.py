@@ -11,8 +11,6 @@ class Library(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     material_id = db.Column(db.Integer, db.ForeignKey('material.id'), nullable=False)
     created_on = db.Column(db.DateTime, default=datetime.datetime.now())
-    user = db.relationship('Users', back_populates='library')
-    material = db.relationship('Material', back_populates='library')
 
     def __init__(self, pay_id, status, user_id, material_id):
         self.pay_id = pay_id
