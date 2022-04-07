@@ -6,7 +6,7 @@ from ..views import users, helper
 def health():
     return jsonify({"System": "UP"})  
 
-@app.route('/v1', methods=['GET'])
+@app.route('/v1/libraries', methods=['GET'])
 @helper.token_required
 def root(current_user):
     response = []
@@ -26,30 +26,30 @@ def authenticate():
 
 
 @app.route('/v1/users', methods=['GET'])
-@helper.token_required
+@helper.admin_required
 def get_users():
     return users.get_users()
 
 
 @app.route('/v1/users/<id>', methods=['GET'])
-@helper.token_required
+@helper.admin_required
 def get_user(id):
     return users.get_user(id)
 
 
 @app.route('/v1/users', methods=['POST'])
-@helper.token_required
+@helper.admin_required
 def post_users():
     return users.post_user()
 
 
 @app.route('/v1/users/<id>', methods=['DELETE'])
-@helper.token_required
+@helper.admin_required
 def delete_users(id):
     return users.delete_user(id)
 
 
 @app.route('/v1/users/<id>', methods=['PUT'])
-@helper.token_required
+@helper.admin_required
 def update_users(id):
     return users.update_user(id)

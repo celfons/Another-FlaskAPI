@@ -7,6 +7,22 @@ import jwt
 from werkzeug.security import check_password_hash
 
 
+def admin_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = request.headers.get('x-token')
+        if not token:
+            return jsonify({'message': 'token is missing', 'data': []}), 401
+        try:
+            data = jwt.decode(token, app.config['SECRET_KEY'])
+            current_user = user_by_username(username=data['username'])
+            if app.config['ADMIN'] != current_user.username
+                return jsonify({'message': 'only admin', 'data': []}), 401
+        except:
+            return jsonify({'message': 'token is invalid or expired', 'data': []}), 401
+        return f(current_user, *args, **kwargs)
+    return decorated
+
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -21,8 +37,6 @@ def token_required(f):
         return f(current_user, *args, **kwargs)
     return decorated
 
-
-# Gerando token com base na Secret key do app e definindo expiração com 'exp'
 def auth():
     auth = request.authorization
     if not auth or not auth.username or not auth.password:
