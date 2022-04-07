@@ -61,7 +61,7 @@ def root(current_user):
     return jsonify({'name': f'{current_user.name}', 'libraries' : response })
 
 @app.route('/v1/library', methods=['POST'])
-@helper.token_required
+@helper.admin_required
 def post_library():
     return library.post_library()
 
