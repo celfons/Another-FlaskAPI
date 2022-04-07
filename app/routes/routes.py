@@ -50,7 +50,16 @@ def get_category_material(category):
 @app.route('/v1/libraries', methods=['GET'])
 @helper.user_required
 def get_libraries(current_user):
-    return library.get_libraries(current_user)
+    response = []
+    for result in current_user.library:
+        if(result.status == 'succeeded'):
+            response.append({
+                "url" : result.material.url,
+                "category" : result.material.category,
+                "title" : result.material.title,
+                "description" : result.material.description
+            })
+    return jsonify({'name': f'{current_user.name}', 'libraries' : response })
 
 @app.route('/v1/library', methods=['POST'])
 def post_library():
