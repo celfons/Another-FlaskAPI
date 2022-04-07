@@ -69,7 +69,7 @@ def post_library():
 @app.route('/v1/library/<id>', methods=['PUT'])
 @helper.admin_required
 def update_library(id):
-    return library.update_library()
+    return library.update_library(id)
 
 @app.route('/v1/material', methods=['POST'])
 @helper.admin_required
