@@ -11,7 +11,7 @@ port = '5432'
 gen = string.ascii_letters + string.digits + string.ascii_uppercase
 key = ''.join(random.choice(gen) for i in range(12))
 
-SQLALCHEMY_DATABASE_URI = 'postgresql://'+user+':'+password+'@'+host+'/' + database
+SQLALCHEMY_DATABASE_URI = 'postgresql://'+user+':'+passwd+'@'+host+'/' + database
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 SECRET_KEY = key
 DEBUG = False
