@@ -17,7 +17,7 @@ class Library(db.Model):
         self.pay_id = pay_id
         self.status = status
         self.user_id = user_id
-        self. payment_link = payment_link
+        self.payment_link = payment_link
 
 
 class LibrarySchema(ma.Schema):
