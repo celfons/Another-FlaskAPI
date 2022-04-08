@@ -75,7 +75,8 @@ def savePayment(payment):
             pass_hash = generate_password_hash(password)
             user = Users(email, pass_hash, name, email, phone)
             db.session.add(user)
-            db.session.commit()
+            db.session.flush()
+            db.session.refresh(user)
             send_email(email, password)
 
         library = Library(pay_id, status, user.id, material.id)
