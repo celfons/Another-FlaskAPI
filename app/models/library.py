@@ -13,17 +13,17 @@ class Library(db.Model):
     created_on = db.Column(db.DateTime, default=datetime.datetime.now())
     material = db.relationship('Material', back_populates='library')
 
-    def __init__(self, pay_id, status, user_id, material_id):
+    def __init__(self, pay_id, status, user_id, payment_link):
         self.pay_id = pay_id
         self.status = status
         self.user_id = user_id
-        self.material_id = material_id
+        self.payment_link = payment_link
 
 
 class LibrarySchema(ma.Schema):
 
     class Meta:
-        fields = ('id', 'pay_id', 'status', 'user_id', 'material_id', 'created_on')
+        fields = ('id', 'pay_id', 'status', 'user_id', 'payment_link', 'created_on')
 
 
 library_schema = LibrarySchema()
