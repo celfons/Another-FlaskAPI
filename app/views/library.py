@@ -39,48 +39,54 @@ def post_library():
 
     if event['type'] == 'checkout.session.completed':
         payment = event['data']['object']
-       
-        pay_id = payment.payment_intent
-        status = payment.payment_status
-        email = payment.customer_details.email
-        name = payment.customer_details.name
-        phone = payment.customer_details.phone
-        payment_link = payment.payment_link
-       
-        try:
-            material = Material.query.filter(Material.payment_link == payment_link).one()
-            user = Users.query.filter(Users.email == email).first()
-            if not user:
-                gen = string.ascii_letters + string.digits + string.ascii_uppercase
-                password = ''.join(random.choice(gen) for i in range(12))
-                pass_hash = generate_password_hash(password)
-                user = Users(email, pass_hash, name, email, phone)
-                db.session.add(user)
-                db.session.commit()
-                send_email(email, password)
-            library = Library(pay_id, status, user.id, material.id)
-       
-            db.session.add(library)
-            db.session.commit()
-        except Exception as e:
-            print(e)
-            return jsonify({'message': 'unable to create', 'data': {}}), 500
+        savePayment(payment)
+
     if event['type'] == 'charge.refunded':
         refunded = event['data']['object']
-        pay_id = refunded.payment_intent
+        saveRefunded(refunded.payment_intent)
         
-        try:
-            library = Library.query.filter(Library.pay_id == pay_id).one()
-            if library:
-                library.status = "refunded"
-                db.session.commit()
-        except Exception as e:
-            print(e)
-            return jsonify({'message': 'unable to create', 'data': {}}), 500
     else:
         print('Unhandled event type {}'.format(event['type']))
     
     return jsonify(success=True)
+
+def saveRefunded(pay_id):
+    try:
+        library = Library.query.filter(Library.pay_id == pay_id).one()
+        if library:
+            library.status = "refunded"
+            db.session.commit()
+    except Exception as e:
+        print(e)
+        return jsonify({'message': 'unable to create', 'data': {}}), 500
+
+def savePayment(payment):
+    pay_id = payment.payment_intent
+    status = payment.payment_status
+    email = payment.customer_details.email
+    name = payment.customer_details.name
+    phone = payment.customer_details.phone
+    payment_link = payment.payment_link
+    try:
+        material = Material.query.filter(Material.payment_link == payment_link).one()
+        user = Users.query.filter(Users.email == email).first()
+        if not user:
+            gen = string.ascii_letters + string.digits + string.ascii_uppercase
+            password = ''.join(random.choice(gen) for i in range(12))
+            pass_hash = generate_password_hash(password)
+            user = Users(email, pass_hash, name, email, phone)
+            db.session.add(user)
+            db.session.commit()
+            send_email(email, password)
+
+        library = Library(pay_id, status, user.id, material.id)
+    
+        db.session.add(library)
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        return jsonify({'message': 'unable to create', 'data': {}}), 500
+
 
 def update_library(id):
     status = request.json['status']

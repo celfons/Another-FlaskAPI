@@ -67,7 +67,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"guga@petattend.com\",\r\n    \"name\": \"gustavo\",\r\n    \"username\": \"guga\",\r\n    \"password\": \"santos\"\r\n}",
+					"raw": "{\r\n    \"email\": \"guga@petattend.com\",\r\n    \"name\": \"gustavo\",\r\n    \"username\": \"guga\",\r\n    \"password\": \"santos\",\r\n    \"phone\": \"33216777\"   \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -175,7 +175,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"title\": \"TESTE EBOOK\",\r\n    \"description\": \"EBOOKZ TESTE\",\r\n    \"price\": 0,\r\n    \"category\": \"EBOOK\",\r\n    \"url\": \"https://www.youtube.com/watch?v=lLw4KPMbFXc\"\r\n}",
+					"raw": "{\r\n    \"title\": \"LIVE 12\",\r\n    \"description\": \"28/05/2021\",\r\n    \"price\": 0,\r\n    \"category\": \"LIVE\",\r\n    \"url\": \"https://www.youtube.com/watch?v=T3uIDnLreeQ\",\r\n    \"payment_link\": \"plink_1Km3hdKWVmeXF8Fg5zc33GRd\"\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -441,6 +441,43 @@
 						"v1",
 						"library",
 						"xpto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualização de Senha",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\": \"NOVA_sENHA\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://celfons-api.herokuapp.com/v1/users/1",
+					"protocol": "https",
+					"host": [
+						"celfons-api",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"v1",
+						"users",
+						"1"
 					]
 				}
 			},
