@@ -51,7 +51,7 @@ def post_library():
             if not user:
                 password = email
                 pass_hash = generate_password_hash(password)
-                user = User(email, pass_hash, name, email, phone)
+                user = Users(email, pass_hash, name, email, phone)
                 db.session.add(user)
                 db.session.commit()
             library = Library(pay_id, status, user.id, material.id)
