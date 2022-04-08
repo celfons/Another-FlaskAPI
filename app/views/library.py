@@ -9,13 +9,14 @@ import string
 from werkzeug.security import generate_password_hash
 import smtplib
 import email.message
+import json
 
 def get_all(current_user):
     response = []
     for result in current_user.library:
         if(result.status == 'paid'):
             response.append({
-                "id": result.material.id,
+                "id": json.loads(result.material.id),
                 "items" : result.material.items,
                 "category" : result.material.category,
                 "title" : result.material.title,
