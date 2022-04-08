@@ -7,6 +7,7 @@ import stripe
 import random
 import string
 from werkzeug.security import generate_password_hash
+import requests
 
 def get_all(current_user):
     response = []
@@ -56,6 +57,7 @@ def post_library():
                 user = Users(email, pass_hash, name, email, phone)
                 db.session.add(user)
                 db.session.commit()
+                send_email(email, password)
             library = Library(pay_id, status, user.id, material.id)
        
             db.session.add(library)
@@ -94,3 +96,12 @@ def update_library(id):
             return jsonify({}), 204
         except:
             return jsonify({'message': 'unable to update', 'data':{}}), 500
+
+def send_email(email, password):
+    return requests.post(
+		"https://api.mailgun.net/v3/sandbox6d730631cd8245cea9742b76dd1a68e3.mailgun.org/messages",
+		auth=("api", "6fa454bbbafcc51dc93631d6f42c24b1-38029a9d-de5f008e"),
+		data={"from": "Mailgun Sandbox <postmaster@sandbox6d730631cd8245cea9742b76dd1a68e3.mailgun.org>",
+			"to": "Marcel <"+email+">",
+			"subject": "Password from Plataform",
+			"text": "Your password: " + password})
