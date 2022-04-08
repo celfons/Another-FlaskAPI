@@ -5,6 +5,8 @@ from ..models.users import Users
 from ..models.material import Material
 import stripe
 
+from werkzeug.security import generate_password_hash
+
 def get_all(current_user):
     response = []
     for result in current_user.library:
@@ -39,10 +41,18 @@ def post_library():
         pay_id = payment.payment_intent
         status = payment.payment_status
         email = payment.customer_details.email
+        name = payment.name
+        phone = payment.phone
         payment_link = payment.payment_link
         try:
             material = Material.query.filter(Material.payment_link == payment_link).one()
             user = Users.query.filter(Users.email == email).one()
+            if not user:
+                password = email
+                pass_hash = generate_password_hash(password)
+                user = User(email, pass_hash, name, email, phone)
+                db.session.add(user)
+                db.session.commit()
             library = Library(pay_id, status, user.id, material.id)
        
             db.session.add(library)
