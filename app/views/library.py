@@ -50,7 +50,7 @@ def post_library():
         except Exception as e:
             print(e)
             return jsonify({'message': 'unable to create', 'data': {}}), 500
-    if event['type'] == ' charge.refunded':
+    if event['type'] == 'charge.refunded':
         refunded = event['data']['object']
         pay_id = refunded.payment_intent
         try:
