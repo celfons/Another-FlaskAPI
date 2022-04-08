@@ -61,7 +61,8 @@ def post_material():
         db.session.add(material)
         db.session.commit()
         return jsonify({}), 204
-    except:
+    except Exception as e:
+        print(e)
         return jsonify({'message': 'unable to create', 'data': {}}), 500
 
 def update_material(id):

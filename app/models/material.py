@@ -19,7 +19,7 @@ class Material(db.Model):
         self.price = price
         self.category = category
         self.payment_link = payment_link
-        self.items =items
+        self.items = items
 
 class MaterialSchema(ma.Schema):
 
