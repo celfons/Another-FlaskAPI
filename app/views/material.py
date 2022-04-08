@@ -7,7 +7,7 @@ def get_free():
     response = []
     for material in materiais:
         response.append({
-            "id": material.id
+            "id": material.id,
             "price" : material.price,
             "category" : material.category,
             "title" : material.title,
@@ -21,7 +21,7 @@ def get_premium():
     response = []
     for material in materiais:
         response.append({
-            "id": material.id
+            "id": material.id,
             "price" : material.price,
             "category" : material.category,
             "title" : material.title,
@@ -34,7 +34,7 @@ def get_category(category):
     response = []
     for material in materiais:
         response.append({
-            "id": material.id
+            "id": material.id,
             "price" : material.price,
             "category" : material.category,
             "title" : material.title,
