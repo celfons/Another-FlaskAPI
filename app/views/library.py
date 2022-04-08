@@ -42,8 +42,8 @@ def post_library():
         payment_link = payment_intent.payment_link
         try:
             material = Material.query.filter(Material.payment_link == payment_link).one()
-       
-            library = Library(pay_id, status, 1, material.id)
+            user = Users.query.filter(Users.email == email).one()
+            library = Library(pay_id, status, user.id, material.id)
        
             db.session.add(library)
             db.session.commit()
