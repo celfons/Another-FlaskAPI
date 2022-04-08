@@ -7,7 +7,8 @@ import stripe
 import random
 import string
 from werkzeug.security import generate_password_hash
-import requests
+import smtplib
+import email.message
 
 def get_all(current_user):
     response = []
@@ -102,10 +103,17 @@ def update_library(id):
             return jsonify({'message': 'unable to update', 'data':{}}), 500
 
 def send_email(email, password):
-    return requests.post(
-		"https://api.mailgun.net/v3/"+ app.config['EMAIL_DOMAIN'] +".mailgun.org/messages",
-		auth=("api", app.config['EMAIL_SECRET']),
-		data={"from": "Plataform <postmaster@"+ app.config['EMAIL_DOMAIN'] +".mailgun.org>",
-			"to": "Marcel <"+email+">",
-			"subject": "Password from Plataform",
-			"text": "Your password: " + password})
+    corpo_email = "Sua senha para acessar a plataforma é: " + password
+
+    msg = email.message.Message()
+    msg['Subject'] = 'Senha da plataforma'
+    msg['From'] = app.config['EMAIL_USERNAME']
+    msg['To'] = email
+    password = app.config['EMAIL_PASSWORD']
+    msg.add_header('Content-Type', 'text/html')
+    msg.set_payload(corpo_email)
+
+    s = smtplib.SMTP('smtp.gmail.com: 587')
+    s.starttls()
+    s.login(msg['From'], password)
+    s.sendmail(msg['From'], [msg['To']], msg.as_string().encode('utf-8'))
