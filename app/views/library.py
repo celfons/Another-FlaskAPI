@@ -44,9 +44,6 @@ def post_library():
     if event['type'] == 'charge.refunded':
         refunded = event['data']['object']
         saveRefunded(refunded.payment_intent)
-        
-    else:
-        print('Unhandled event type {}'.format(event['type']))
     
     return jsonify(success=True)
 
@@ -77,6 +74,7 @@ def savePayment(payment):
             user = Users(email, pass_hash, name, email, phone)
             db.session.add(user)
             db.session.commit()
+            print(password)
             send_email(email, password)
 
         library = Library(pay_id, status, user.id, material.id)
