@@ -34,12 +34,12 @@ def post_library():
         raise e
 
     if event['type'] == 'checkout.session.completed':
-        payment_intent = event['data']['object']
+        payment = event['data']['object']
        
-        pay_id = payment_intent.id
-        status = payment_intent.payment_status
-        email = payment_intent.customer_details.email
-        payment_link = payment_intent.payment_link
+        pay_id = payment.payment_intent
+        status = payment.payment_status
+        email = payment.customer_details.email
+        payment_link = payment.payment_link
         try:
             material = Material.query.filter(Material.payment_link == payment_link).one()
             user = Users.query.filter(Users.email == email).one()
