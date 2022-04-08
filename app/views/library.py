@@ -2,6 +2,7 @@ from app import app, db
 from flask import request, jsonify
 from ..models.library import Library, library_schema, libraries_schema
 from ..models.users import Users
+from ..models.material import Material
 import stripe
 
 def get_all(current_user):
@@ -39,10 +40,9 @@ def post_library():
         status = payment_intent.payment_status
         email = payment_intent.customer_details.email
         payment_link = payment_intent.payment_link
-        print(email)
-        #user = Users.query.filter(Users.email == email).one()
+        material = Material.query.filter(Material.payment_link == payment_link).one()
        
-        library = Library(pay_id, status, 1, payment_link)
+        library = Library(pay_id, status, 1, material.id)
 
         try:
             db.session.add(library)
