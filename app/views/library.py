@@ -56,7 +56,7 @@ def post_library():
         try:
             library = Library.query.filter(Library.pay_id == pay_id).one()
             if library:
-                library.status = status
+                library.status = "refunded"
                 db.session.commit()
         except Exception as e:
             print(e)
