@@ -16,8 +16,8 @@ def get_all(current_user):
     for result in current_user.library:
         if(result.status == 'paid'):
             response.append({
-                "id": json.loads(result.material.id),
-                "items" : result.material.items,
+                "id": result.material.id,
+                "items" : json.loads(result.material.items),
                 "category" : result.material.category,
                 "title" : result.material.title,
                 "description" : result.material.description
