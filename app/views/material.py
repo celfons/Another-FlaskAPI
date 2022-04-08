@@ -12,7 +12,7 @@ def get_free():
             "category" : material.category,
             "title" : material.title,
             "description" : material.description,
-            "url" : material.url
+            "items" : material.items
         })
     return jsonify(response), 200
 
@@ -47,15 +47,15 @@ def post_material():
     description = request.json['description']
     price = request.json['price']
     category = request.json['category']
-    url = request.json['url']
+    items = request.json['items']
     payment_link = request.json['payment_link']
 
     material = material_by_title(title)
     if material:
-        result = material_schema.dump(material)
+        material_schema.dump(material)
         return jsonify({'message': 'user already exists', 'data': {}})
 
-    material = Material(title, description, price, category, url, payment_link)
+    material = Material(title, description, price, category, items, payment_link)
 
     try:
         db.session.add(material)
@@ -69,7 +69,7 @@ def update_material(id):
     description = request.json['description']
     price = request.json['price']
     category = request.json['category']
-    url = request.json['url']
+    items = request.json['items']
     payment_link = request.json['payment_link']
     material = Material.query.get(id)
 
@@ -82,7 +82,7 @@ def update_material(id):
             material.description = description
             material.price = price
             material.category = category
-            material.url = url
+            material.items = items
             material.payment_link = payment_link
             db.session.commit()
             return jsonify({}), 204

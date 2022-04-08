@@ -13,11 +13,10 @@ import email.message
 def get_all(current_user):
     response = []
     for result in current_user.library:
-        print(result.material.url)
         if(result.status == 'paid'):
             response.append({
                 "id": result.material.id
-                "url" : result.material.url,
+                "items" : result.material.items,
                 "category" : result.material.category,
                 "title" : result.material.title,
                 "description" : result.material.description
