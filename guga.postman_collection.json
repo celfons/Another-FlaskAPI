@@ -136,7 +136,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"title\": \"TESTE EBOOK\",\r\n    \"description\": \"EBOOKZ TESTE\",\r\n    \"price\": 0,\r\n    \"category\": \"EBOOK\",\r\n    \"url\": \"https://www.youtube.com/watch?v=lLw4KPMbFXc\"\r\n}",
+					"raw": "{\r\n    \"title\": \"COMBO CURSO DETOX\",\r\n    \"description\": \"20 AULAS\",\r\n    \"price\": 1,\r\n    \"category\": \"COMBO\",\r\n    \"items\": \"[{ \\\"id\\\" : \\\"99\\\", \\\"url\\\" : \\\"https:\\/\\/www.youtube.com\\/watch?v=lLw4KPMbFXc\\\", \\\"title\\\" : \\\"AULA 1\\\", \\\"category\\\": \\\"CURSO\\\" }]\",\r\n    \"payment_link\": \"plink_1Km3hdKWVmeXF8Fg5zc33GRd\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -323,7 +323,7 @@
 					}
 				],
 				"url": {
-					"raw": "https://celfons-api.herokuapp.com/material/premium",
+					"raw": "https://celfons-api.herokuapp.com/v1/material/premium",
 					"protocol": "https",
 					"host": [
 						"celfons-api",
@@ -331,6 +331,7 @@
 						"com"
 					],
 					"path": [
+						"v1",
 						"material",
 						"premium"
 					]
@@ -350,7 +351,7 @@
 					}
 				],
 				"url": {
-					"raw": "https://celfons-api.herokuapp.com/v1/material/category/LIVE",
+					"raw": "https://celfons-api.herokuapp.com/v1/material/category/COMBO",
 					"protocol": "https",
 					"host": [
 						"celfons-api",
@@ -361,7 +362,7 @@
 						"v1",
 						"material",
 						"category",
-						"LIVE"
+						"COMBO"
 					]
 				}
 			},
@@ -369,9 +370,6 @@
 		},
 		{
 			"name": "Buscar bibliotecas de usuario",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
 				"header": [
@@ -381,15 +379,6 @@
 						"type": "text"
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"customer\": 1,\r\n    \"material\": 1,\r\n    \"pay\": \"\",\r\n    \"status\": \"FREE\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
 					"raw": "https://celfons-api.herokuapp.com/v1/libraries",
 					"protocol": "https",

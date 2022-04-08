@@ -8,7 +8,7 @@ import random
 import string
 from werkzeug.security import generate_password_hash
 import smtplib
-import email.message
+import email
 import json
 
 def get_all(current_user):
@@ -103,13 +103,13 @@ def update_library(id):
         except:
             return jsonify({'message': 'unable to update', 'data':{}}), 500
 
-def send_email(email, password):
+def send_email(userEmail, password):
     corpo_email = "Sua senha para acessar a plataforma é: " + password
 
     msg = email.message.Message()
     msg['Subject'] = 'Senha da plataforma'
     msg['From'] = app.config['EMAIL_USERNAME']
-    msg['To'] = email
+    msg['To'] = userEmail
     password = app.config['EMAIL_PASSWORD']
     msg.add_header('Content-Type', 'text/html')
     msg.set_payload(corpo_email)
