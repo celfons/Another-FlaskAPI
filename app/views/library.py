@@ -40,9 +40,9 @@ def post_library():
         email = payment_intent.customer_details.email
         payment_link = payment_intent.payment_link
         print(email)
-        user = Users.query.filter(Users.email == email).one()
-        print(user.id)
-        library = Library(pay_id, status, user.id, payment_link)
+        #user = Users.query.filter(Users.email == email).one()
+       
+        library = Library(pay_id, status, 1, payment_link)
 
         try:
             db.session.add(library)
