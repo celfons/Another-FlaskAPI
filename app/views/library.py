@@ -41,8 +41,8 @@ def post_library():
         pay_id = payment.payment_intent
         status = payment.payment_status
         email = payment.customer_details.email
-        name = payment.name
-        phone = payment.phone
+        name = payment.customer_details.name
+        phone = payment.customer_details.phone
         payment_link = payment.payment_link
         try:
             material = Material.query.filter(Material.payment_link == payment_link).one()
