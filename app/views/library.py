@@ -50,7 +50,17 @@ def post_library():
         except Exception as e:
             print(e)
             return jsonify({'message': 'unable to create', 'data': {}}), 500
-
+    if event['type'] == ' charge.refunded':
+        refunded = event['data']['object']
+        pay_id = refunded.payment_intent
+        try:
+            library = Library.query.filter(Library.pay_id == pay_id).one()
+            if library:
+                library.status = status
+                db.session.commit()
+        except Exception as e:
+            print(e)
+            return jsonify({'message': 'unable to create', 'data': {}}), 500
     else:
         print('Unhandled event type {}'.format(event['type']))
     
