@@ -112,7 +112,10 @@ def send_email(email, password):
     msg.add_header('Content-Type', 'text/html')
     msg.set_payload(corpo_email)
 
-    s = smtplib.SMTP('smtp.gmail.com: 587')
-    s.starttls()
-    s.login(msg['From'], password)
-    s.sendmail(msg['From'], [msg['To']], msg.as_string().encode('utf-8'))
+    try:
+        s = smtplib.SMTP('smtp.gmail.com: 587')
+        s.starttls()
+        s.login(msg['From'], password)
+        s.sendmail(msg['From'], [msg['To']], msg.as_string().encode('utf-8'))
+    except Exception as e:
+        print(e)
