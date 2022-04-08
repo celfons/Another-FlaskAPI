@@ -39,9 +39,9 @@ def post_library():
         status = payment_intent.payment_status
         email = payment_intent.customer_details.email
         payment_link = payment_intent.payment_link
-
+        print(email)
         user = Users.query.filter(Users.email == email).one()
-
+        print(user.id)
         library = Library(pay_id, status, user.id, payment_link)
 
         try:
