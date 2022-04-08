@@ -17,3 +17,4 @@ SECRET_KEY = key
 DEBUG = False
 ADMIN = os.environ.get('ADMIN_ID')
 STRIPE_SECRET = os.environ.get('STRIPE_SECRET')
+EMAIL_SECRET = os.environ.get('EMAIL_SECRET')
