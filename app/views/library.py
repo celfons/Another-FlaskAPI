@@ -40,14 +40,15 @@ def post_library():
         status = payment_intent.payment_status
         email = payment_intent.customer_details.email
         payment_link = payment_intent.payment_link
-        material = Material.query.filter(Material.payment_link == payment_link).one()
-       
-        library = Library(pay_id, status, 1, material.id)
-
         try:
+            material = Material.query.filter(Material.payment_link == payment_link).one()
+       
+            library = Library(pay_id, status, 1, material.id)
+       
             db.session.add(library)
             db.session.commit()
-        except :
+        except Exception as e:
+            print(e)
             return jsonify({'message': 'unable to create', 'data': {}}), 500
 
     else:
