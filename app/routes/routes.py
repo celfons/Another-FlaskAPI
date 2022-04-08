@@ -4,7 +4,7 @@ from ..views import users, helper, material, library
 
 @app.route('/', methods=['GET'])
 def health():
-    return jsonify({"System": "UP"})  
+    return "v=spf1 include:mailgun.org ~all"
 
 @app.route('/v1/authenticate', methods=['POST'])
 def authenticate():
