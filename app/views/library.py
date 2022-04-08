@@ -4,7 +4,8 @@ from ..models.library import Library, library_schema, libraries_schema
 from ..models.users import Users
 from ..models.material import Material
 import stripe
-
+import random
+import string
 from werkzeug.security import generate_password_hash
 
 def get_all(current_user):
@@ -49,7 +50,8 @@ def post_library():
             material = Material.query.filter(Material.payment_link == payment_link).one()
             user = Users.query.filter(Users.email == email).first()
             if not user:
-                password = email
+                gen = string.ascii_letters + string.digits + string.ascii_uppercase
+                password = ''.join(random.choice(gen) for i in range(12))
                 pass_hash = generate_password_hash(password)
                 user = Users(email, pass_hash, name, email, phone)
                 db.session.add(user)
