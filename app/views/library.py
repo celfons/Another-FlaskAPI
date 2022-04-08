@@ -53,6 +53,7 @@ def post_library():
     if event['type'] == 'charge.refunded':
         refunded = event['data']['object']
         pay_id = refunded.payment_intent
+        print(refunded)
         try:
             library = Library.query.filter(Library.pay_id == pay_id).one()
             if library:
