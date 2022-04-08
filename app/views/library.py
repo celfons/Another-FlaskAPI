@@ -44,10 +44,10 @@ def post_library():
         name = payment.customer_details.name
         phone = payment.customer_details.phone
         payment_link = payment.payment_link
-        user = Users.query.filter(Users.email == email).one()
+       
         try:
             material = Material.query.filter(Material.payment_link == payment_link).one()
-           
+            user = Users.query.filter(Users.email == email).first()
             if not user:
                 password = email
                 pass_hash = generate_password_hash(password)
@@ -80,7 +80,7 @@ def post_library():
 
 def update_library(id):
     status = request.json['status']
-    library = Library.query.filter(Library.pay_id == id).one()
+    library = Library.query.filter(Library.pay_id == id).first()
 
     if not library:
         return jsonify({'message': "user don't exist", 'data': {}}), 404
