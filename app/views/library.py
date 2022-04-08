@@ -44,9 +44,10 @@ def post_library():
         name = payment.customer_details.name
         phone = payment.customer_details.phone
         payment_link = payment.payment_link
+        user = Users.query.filter(Users.email == email).one()
         try:
             material = Material.query.filter(Material.payment_link == payment_link).one()
-            user = Users.query.filter(Users.email == email).one()
+           
             if not user:
                 password = email
                 pass_hash = generate_password_hash(password)
