@@ -99,9 +99,9 @@ def update_library(id):
 
 def send_email(email, password):
     return requests.post(
-		"https://api.mailgun.net/v3/sandbox6d730631cd8245cea9742b76dd1a68e3.mailgun.org/messages",
+		"https://api.mailgun.net/v3/"+ app.config['EMAIL_DOMAIN'] +".mailgun.org/messages",
 		auth=("api", app.config['EMAIL_SECRET']),
-		data={"from": "Mailgun Sandbox <postmaster@sandbox6d730631cd8245cea9742b76dd1a68e3.mailgun.org>",
+		data={"from": "Plataform <postmaster@"+ app.config['EMAIL_DOMAIN'] +".mailgun.org>",
 			"to": "Marcel <"+email+">",
 			"subject": "Password from Plataform",
 			"text": "Your password: " + password})
