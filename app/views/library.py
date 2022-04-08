@@ -15,6 +15,7 @@ def get_all(current_user):
         print(result.material.url)
         if(result.status == 'paid'):
             response.append({
+                "id": result.material.id
                 "url" : result.material.url,
                 "category" : result.material.category,
                 "title" : result.material.title,
