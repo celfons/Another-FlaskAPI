@@ -49,7 +49,7 @@ def post_user():
         return jsonify({'message': 'unable to create', 'data': {}}), 500
 
 
-def update_user(id):
+def update_password(id):
     password = request.json['password']
     user = Users.query.get(id)
 
@@ -61,12 +61,38 @@ def update_user(id):
     if user:
         try:
             user.password = pass_hash
+            user.first_login = False
             db.session.commit()
             result = user_schema.dump(user)
             return jsonify({'message': 'successfully updated', 'data': result.data}), 201
         except:
             return jsonify({'message': 'unable to update', 'data':{}}), 500
 
+def update_user(id):
+    username = request.json['username']
+    password = request.json['password']
+    name = request.json['name']
+    email = request.json['email']
+    phone = request.json['phone']
+    user = Users.query.get(id)
+
+    if not user:
+        return jsonify({'message': "user don't exist", 'data': {}}), 404
+
+    pass_hash = generate_password_hash(password)
+
+    if user:
+        try:
+            user.username = username
+            user.password = pass_hash
+            user.name = name
+            user.email = email
+            phone.email = phone
+            db.session.commit()
+            result = user_schema.dump(user)
+            return jsonify({'message': 'successfully updated', 'data': result.data}), 201
+        except:
+            return jsonify({'message': 'unable to update', 'data':{}}), 500
 
 def delete_user(id):
     user = Users.query.get(id)

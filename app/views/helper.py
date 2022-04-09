@@ -49,6 +49,6 @@ def auth():
         token = jwt.encode({'username': user.username, 'exp': datetime.datetime.now() + datetime.timedelta(hours=12) },
                            app.config['SECRET_KEY'])
         return jsonify({'message': 'Validated successfully', 'token': token.decode('UTF-8'),
-                        'exp': datetime.datetime.now() + datetime.timedelta(hours=12)})
+                        'exp': datetime.datetime.now() + datetime.timedelta(hours=12), 'first_login' : user.first_login})
 
     return jsonify({'message': 'could not verify', 'WWW-Authenticate': 'Basic auth="Login required"'}), 401
