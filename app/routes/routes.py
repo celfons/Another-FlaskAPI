@@ -46,7 +46,7 @@ def update_users(id):
 @app.route('/v1/users/<id>/password', methods=['PUT'])
 @cross_origin(origin='http://celfons-api.herokuapp.com')
 @helper.admin_required
-def update_users(id):
+def update_password(id):
     return users.update_password(id)
 
 @app.route('/v1/material/free', methods=['GET'])
