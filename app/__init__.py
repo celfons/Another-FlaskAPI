@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
-CORS(app, resources={r"/*": {"origins": "*"}})
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 from .models import users, material, library
 from .views import users, helper

@@ -20,7 +20,8 @@ def get_all(current_user):
                 "items" : json.loads(result.material.items),
                 "category" : result.material.category,
                 "title" : result.material.title,
-                "description" : result.material.description
+                "description" : result.material.description,
+                "custom_fields": result.custom_fields
             })
     return jsonify({'name': f'{current_user.name}', 'libraries' : response })
 
@@ -88,7 +89,7 @@ def savePayment(payment):
         return jsonify({'message': 'unable to create', 'data': {}}), 500
 
 
-def update_library(id):
+def update_library_payment_status(id):
     status = request.json['status']
     library = Library.query.filter(Library.pay_id == id).first()
 

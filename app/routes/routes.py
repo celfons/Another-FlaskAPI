@@ -78,8 +78,8 @@ def post_library():
 @app.route('/v1/library/<id>', methods=['PUT'])
 @cross_origin()
 @helper.admin_required
-def update_library(id):
-    return library.update_library(id)
+def update_library_payment_status(id):
+    return library.update_library_payment_status(id)
 
 @app.route('/v1/material', methods=['POST'])
 @cross_origin()

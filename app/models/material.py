@@ -8,7 +8,7 @@ class Material(db.Model):
     description= db.Column(db.Text, nullable=False)
     price = db.Column(db.Float(), default=0, nullable=False)
     category = db.Column(db.String(20), default="curso", nullable=False)
-    items = db.Column(db.String(255))
+    items = db.Column(db.Text())
     payment_link = db.Column(db.String(255))
     created_on = db.Column(db.DateTime, default=datetime.datetime.now())
     library = db.relationship('Library', backref='material_library', lazy=True)
