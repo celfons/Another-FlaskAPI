@@ -39,8 +39,6 @@ def admin_required(f):
 def auth():
     username = request.json['username']
     password = request.json['password']
-    print(username)
-    print(password)
     if not username or not password:
         return jsonify({'message': 'could not verify', 'WWW-Authenticate': 'Basic auth="Login required"'}), 401
     user = user_by_username(username)
